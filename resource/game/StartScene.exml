@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="StartSceneexml" width="414" height="736" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing">
+        <e:Image source="backgroundColor_png" x="0" y="0" anchorOffsetX="0" width="414" anchorOffsetY="0" height="736" />
+        <e:Button id="toStartBtn" label="START" x="157" y="583.7" />
+        <e:Label id="menuTitle" text="Menu Title" x="124.62" y="270.1" verticalAlign="middle" textAlign="center"
+                 anchorOffsetX="0" width="164.76" anchorOffsetY="0" height="33.02" />
+</e:Skin>

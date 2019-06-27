@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="GameSceneexml" width="414" height="736" xmlns:e="http://ns.egret.com/eui"
+        xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
+	<w:Declarations>
+		<tween:TweenGroup id="bgAnimate">
+			<tween:TweenItem target="{speedLine1}">
+				<tween:To duration="1500">
+					<tween:props>
+						<e:Object x="{322.82}" y="{736}" />
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{speedLine2}">
+				<tween:To duration="1000">
+					<tween:props>
+						<e:Object x="{200}" y="{736}" />
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{speedLine3}">
+				<tween:To duration="1250">
+					<tween:props>
+						<e:Object x="{87.85}" y="{736}" />
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+	</w:Declarations>
+	<e:Image source="backgroundColor_png" x="0" y="0" anchorOffsetX="0" width="414" anchorOffsetY="0" height="736" />
+	<e:Image id="speedLine1" source="speedLine_png" x="322.82" y="-186" />
+	<e:Image id="speedLine2" source="speedLine_png" x="188" y="-203" />
+	<e:Image id="speedLine3" source="speedLine_png" x="78.76" y="-203" />
+	<e:Label text="GameScene" size="60" horizontalCenter="0" verticalCenter="0" />
+	<e:Label id="toEndBtn" text="ToEnd" y="662.12" size="37" horizontalCenter="0" />
+</e:Skin>
