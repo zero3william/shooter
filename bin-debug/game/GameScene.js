@@ -18,10 +18,19 @@ var GameScene = (function (_super) {
     GameScene.prototype.onComplete = function () {
         this.toEndBtn.touchEnabled = true;
         this.toEndBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.endGame, this);
+        this.playAnimation(this.bgAnimate, true);
     };
     GameScene.prototype.endGame = function () {
         var s1 = new EndScene();
         SceneManager.Instance.changeScene(s1);
+    };
+    GameScene.prototype.playAnimation = function (target, isLoop) {
+        if (isLoop) {
+            for (var key in target.items) {
+                target.items[key].props = { loop: true };
+            }
+        }
+        target.play();
     };
     return GameScene;
 }(Scene));
