@@ -22,6 +22,8 @@ declare module skins{
 	class PanelSkin extends eui.Skin{
 	}
 }
+declare class playerSkin extends eui.Skin{
+}
 declare module skins{
 	class ProgressBarSkin extends eui.Skin{
 	}

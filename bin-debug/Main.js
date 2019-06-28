@@ -168,7 +168,6 @@ var Main = (function (_super) {
     Main.prototype.createGameScene = function () {
         SceneManager.Instance.rootLayer = this;
         var s1 = new StartScene();
-        //显示第一个场景
         SceneManager.Instance.changeScene(s1);
     };
     return Main;

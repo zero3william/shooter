@@ -2,7 +2,6 @@ class StartScene extends Scene {
 	public menuTitle: eui.Label;
 	public toStartBtn: eui.Button;
 
-
 	public constructor() {
 		super();
 		this.skinName = "resource/game/StartScene.exml";

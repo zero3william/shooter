@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="playerSkin" width="99" height="75" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        states="normal,left,right" width.left="90" height.left="77" width.right="90" height.right="77">
+	<w:Config id="16b9d2bb34d"></w:Config>
+	<e:Image source="playerRight_png" includeIn="right" x="0" y="0" />
+	<e:Image source="playerLeft_png" includeIn="left" x="0" y="0" />
+	<e:Image source="player_png" x="0" y="0" includeIn="normal" />
+</e:Skin>

@@ -101,10 +101,8 @@ class Main extends eui.UILayer {
      */
     protected createGameScene(): void {
         SceneManager.Instance.rootLayer = this;
-        let s1:StartScene =  new StartScene();
-        //显示第一个场景
+        let s1: StartScene = new StartScene();
         SceneManager.Instance.changeScene(s1);
-        
     }
 
 }

@@ -1,5 +1,10 @@
 {
-  "global": {
-    "globalAutoLayerMarkEnable": true
-  }
+    "global": {
+        "globalAutoLayerMarkEnable": true
+    },
+    "16b9d2bb34d": {
+        "path": "..\\resource\\custom_skins\\player.ts",
+        "class": "player",
+        "parentPath": ""
+    }
 }
