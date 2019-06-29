@@ -34,7 +34,6 @@
 		"resource/game/EndScene.exml",
 		"resource/game/GameScene.exml",
 		"resource/game/StartScene.exml",
-		"resource/game/tanchu.exml",
 		"resource/game/toast.exml"
 	],
 	"path": "resource/default.thm.json"

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="playerSkin" width="99" height="75" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
-        states="normal,left,right" width.left="90" height.left="77" width.right="90" height.right="77">
+<e:Skin class="playerSkin" width="50" height="37" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing"
+        states="normal,left,right" width.left="50" height.left="37" width.right="50" height.right="37" width.normal="50" height.normal="37">
 	<w:Config id="16b9d2bb34d"></w:Config>
-	<e:Image source="playerRight_png" includeIn="right" x="0" y="0" />
-	<e:Image source="playerLeft_png" includeIn="left" x="0" y="0" />
-	<e:Image source="player_png" x="0" y="0" includeIn="normal" />
+	<e:Image source="playerRight_png" includeIn="right" x="0" y="0"  width="50" height="37"/>
+	<e:Image source="playerLeft_png" includeIn="left" x="0" y="0"  width="50" height="37"/>
+	<e:Image source="player_png" x="0" y="0" includeIn="normal"  width="50" height="37"/>
 </e:Skin>

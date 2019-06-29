@@ -14,7 +14,6 @@ var SceneManager = (function () {
         enumerable: true,
         configurable: true
     });
-    //切换场景
     SceneManager.prototype.changeScene = function (s) {
         if (this.currentScene) {
             this.rootLayer.removeChild(this.currentScene);
@@ -23,7 +22,6 @@ var SceneManager = (function () {
         this.rootLayer.addChild(s);
         this.currentScene = s;
     };
-    //弹出场景层
     SceneManager.prototype.pushScene = function (s) {
         this.popScene();
         if (!this.pop_scene) {
@@ -31,7 +29,6 @@ var SceneManager = (function () {
             this.pop_scene = s;
         }
     };
-    //关闭场景层
     SceneManager.prototype.popScene = function () {
         if (this.pop_scene) {
             this.rootLayer.removeChild(this.pop_scene);

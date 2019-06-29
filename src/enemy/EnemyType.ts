@@ -1,0 +1,5 @@
+
+enum EnemyType {
+    SHIP,
+    UFO
+}

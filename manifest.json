@@ -9,20 +9,26 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/game/Scene.js",
-		"bin-debug/game/EndScene.js",
-		"bin-debug/Main.js",
+		"bin-debug/enemy/EnemyPlane.js",
+		"bin-debug/sceneManage/Scene.js",
+		"bin-debug/enemy/EnemyFactory.js",
 		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
-		"bin-debug/game/BulletObject.js",
-		"bin-debug/game/BulletType.js",
+		"bin-debug/bullet/BulletFactory.js",
+		"bin-debug/bullet/BulletObject.js",
+		"bin-debug/bullet/BulletType.js",
+		"bin-debug/bullet/HitEvent.js",
+		"bin-debug/enemy/AddShipEnemyEvent.js",
 		"bin-debug/LoadingUI.js",
-		"bin-debug/game/FireEvent.js",
-		"bin-debug/game/GameScene.js",
 		"bin-debug/AssetAdapter.js",
-		"bin-debug/game/SceneManger.js",
+		"bin-debug/enemy/EnemyType.js",
+		"bin-debug/enemy/FireEvent.js",
+		"bin-debug/enemy/ShipEnemyPlane.js",
+		"bin-debug/game/EndScene.js",
+		"bin-debug/game/GameScene.js",
 		"bin-debug/game/StartScene.js",
-		"bin-debug/game/Tanchu.js",
-		"bin-debug/game/Toast.js"
+		"bin-debug/Main.js",
+		"bin-debug/sceneManage/SceneManger.js",
+		"bin-debug/sceneManage/Toast.js"
 	]
 }

@@ -12,7 +12,6 @@ var Scene = (function (_super) {
     __extends(Scene, _super);
     function Scene() {
         var _this = _super.call(this) || this;
-        // 监听组件创建完毕 也就是场景的外观创建完毕
         _this.addEventListener(eui.UIEvent.CREATION_COMPLETE, _this.onComplete, _this);
         return _this;
     }

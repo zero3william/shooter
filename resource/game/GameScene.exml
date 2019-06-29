@@ -32,6 +32,6 @@
 	<e:Image id="speedLine3" source="speedLine_png" x="103.75" y="-186" />
 	<e:Label text="GameScene" size="60" horizontalCenter="0" verticalCenter="0" />
 	<e:Label id="toEndBtn" text="ToEnd" y="662.12" size="37" horizontalCenter="0" />
-	<e:Component id="player" width="99" height="77" x="182.25" y="588" enabled="false" skinName="playerSkin" scaleX="0.5"
-	             scaleY="0.5" />
+	<e:Component id="player" width="50" height="37" x="182" y="602" enabled="false" skinName="playerSkin" scaleX="1"
+	             scaleY="1" />
 </e:Skin>

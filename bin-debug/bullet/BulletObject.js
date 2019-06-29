@@ -14,10 +14,14 @@ var BulletObject = (function (_super) {
         var _this = _super.call(this) || this;
         _this._speed = 5;
         _this.inUse = false;
-        _this.width = 9;
-        _this.height = 33;
+        var w = 8;
+        var h = 30;
+        _this.width = w;
+        _this.height = h;
         _this._main = main;
         _this._bullet = new egret.Bitmap();
+        _this._bullet.width = w;
+        _this._bullet.height = h;
         _this.addChild(_this._bullet);
         return _this;
     }
@@ -25,8 +29,14 @@ var BulletObject = (function (_super) {
         if (this.inUse) {
             if (this.bType == BulletType.ENEMY) {
                 this.y += this._speed;
+                if (this.y >= 716) {
+                    if (this.parent) {
+                        this.parent.removeChild(this);
+                        this.Recycle();
+                    }
+                }
             }
-            if (this.bType == BulletType.HERO) {
+            else if (this.bType == BulletType.HERO) {
                 this.y -= this._speed;
                 if (this.y <= 0) {
                     if (this.parent) {
@@ -38,21 +48,35 @@ var BulletObject = (function (_super) {
         }
     };
     BulletObject.prototype.Use = function (type, x, y) {
+        var _this = this;
         this.inUse = true;
         this.x = x;
         this.y = y;
         this.bType = type;
-        if (type == BulletType.ENEMY) {
-            this._bullet.texture = RES.getRes("laserGreen");
+        if (type === BulletType.ENEMY) {
+            this._bullet.texture = RES.getRes("laserGreen_png");
         }
         else {
-            this._bullet.texture = RES.getRes("laserRed");
+            this._bullet.texture = RES.getRes("laserRed_png");
         }
         this._main.addChildAt(this, 10);
         this.addEventListener(egret.Event.ENTER_FRAME, this.frame, this);
+        this.addEventListener(HitEvent.EventString, function (e) {
+            console.log("碰撞事件触发：" + _this.bType + "的子彈");
+            if (_this.bType == BulletType.ENEMY) {
+                //Hero被击中
+                console.log("life -1");
+            }
+            if (_this.bType == BulletType.HERO) {
+                //Enemy被击中
+                // e.enemy.Recycle();
+                // this._Score += 1;
+                console.log("分数 +1");
+            }
+            console.log(_this.bType);
+        }, this);
     };
     BulletObject.prototype.Recycle = function () {
-        console.log("回收子弹：" + this.bType);
         this.inUse = false;
         this.removeEventListener(egret.Event.ENTER_FRAME, this.frame, this);
     };

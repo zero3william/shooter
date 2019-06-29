@@ -2,70 +2,136 @@ class GameScene extends Scene {
 	private toEndBtn: eui.Label;
 	private bgAnimate: egret.tween.TweenGroup;
 	private player: eui.Component;
-	private duration: number = 50;
+	private moveSpeed: number = 20;
+	private attackRate: number = 500;
+	private reloading: Boolean = false; 
+	private _EnemyFactory: EnemyFactory = new EnemyFactory();
+	private _bulletPool: BulletFactory = new BulletFactory();
+	private keydownObj = {
+		left: false,
+		up: false,
+		right: false,
+		down: false,
+		spacebar: false
+	};
 
 	public constructor() {
 		super();
 		this.skinName = "resource/game/GameScene.exml";
 	}
 	protected onComplete() {
+    	this._EnemyFactory.Init(this);
+		this._bulletPool.Init(this);
+
 		this.toEndBtn.touchEnabled = true;
 		this.toEndBtn.addEventListener(egret.TouchEvent.TOUCH_TAP, this.endGame, this);
 		this.playAnimation(this.bgAnimate, true);
 
-		let bulletArr = this.bulletArr;
-		console.log(bulletArr);
-		for (var i = 0; i < 50; i++) {
-			var bullet = new BulletObject(this);
-			bulletArr.push(bullet)
+		enum keyCode {
+			spacebar = 32,
+			left = 37,
+			up,
+			right,
+			down
 		}
-
-		let that = this;
-		document.addEventListener("keydown", function _onKeyDown(evt) {
-			document.removeEventListener("keydown", _onKeyDown, true);
-			let intervalId: number;
-			enum keyCode {
-				spacebar = 32,
-				left = 37,
-				up,
-				right,
-				down
-			}
+		document.addEventListener("keydown", (evt) => {
 			switch (evt.keyCode) {
 				case keyCode.left:
-					intervalId = egret.setInterval(that.move, that, that.duration, that.player, [-5, 0]);
-					that.player.currentState = "left"
+					this.keydownObj.left=true;
 					break;
-				case keyCode.up:
-					intervalId = egret.setInterval(that.move, that, that.duration, that.player, [0, -5]);
+				case keyCode.up: 
+					this.keydownObj.up=true;
 					break;
 				case keyCode.right:
-					intervalId = egret.setInterval(that.move, that, that.duration, that.player, [5, 0]);
-					that.player.currentState = "right"
+					this.keydownObj.right=true;
 					break;
 				case keyCode.down:
-					intervalId = egret.setInterval(that.move, that, that.duration, that.player, [0, 5]);
+				 	this.keydownObj.down=true;
 					break;
 				case keyCode.spacebar:
-					let b = that.GetBullet();
-					if (b == undefined) {
-						console.log("对象池中没有对象")
-						return;
-					}
-					b.Use(BulletType.HERO, that.player.x + that.player.width / 2, that.player.y - 18)
+					this.keydownObj.spacebar=true;
+					this.tryShoot();
 					break;
 				default:
-					console.log(evt.keyCode);
 			}
-			document.addEventListener("keyup", function _onKeyUp() {
-				document.removeEventListener("keyup", _onKeyUp, true);
-				that.player.currentState = "normal";
-				egret.clearInterval(intervalId);
-				document.addEventListener("keydown", _onKeyDown);
-			});
 		});
+		document.addEventListener("keyup", (evt) => {
+			switch (evt.keyCode) {
+				case keyCode.left:
+					this.keydownObj.left=false;
+					break;
+				case keyCode.up: 
+					this.keydownObj.up=false;
+					break;
+				case keyCode.right:
+					this.keydownObj.right=false;
+					break;
+				case keyCode.down:
+				 	this.keydownObj.down=false;
+					break;
+				case keyCode.spacebar:
+				 	this.keydownObj.spacebar=false;
+					break;
+				default:
+			}
+		});
+
+		egret.setInterval(()=>{
+			if(this.keydownObj.left && this.keydownObj.up) {
+				this.move(this.player,[-5,-5]);
+				this.player.currentState = "left";
+			} else if(this.keydownObj.left && this.keydownObj.down) {
+				this.move(this.player,[-5,5]);
+				this.player.currentState = "left";
+			} else if(this.keydownObj.right && this.keydownObj.up) {
+				this.move(this.player,[5,-5]);
+				this.player.currentState = "right";
+			}  else if(this.keydownObj.right && this.keydownObj.down) {
+				this.move(this.player,[5,5]);
+				this.player.currentState = "right";
+			} else if (this.keydownObj.left) {
+				this.move(this.player,[-5,0]); 
+				this.player.currentState = "left";
+			} else if (this.keydownObj.right ) {
+				this.move(this.player,[5,0]);
+				this.player.currentState = "right";
+			} else if (this.keydownObj.up) {
+				this.move(this.player,[0,-5]);
+			} else if (this.keydownObj.down) {
+				this.move(this.player,[0,5]);
+			}
+		},this,this.moveSpeed);
+
+		egret.setInterval(()=>{
+			if(this.keydownObj.spacebar) {
+				this.tryShoot();
+			}
+		},this,this.attackRate)
+
+		this.addEventListener(egret.Event.ENTER_FRAME, (e) => {
+			//判断子弹是否和飞机碰撞
+			let isHit = this._bulletPool.IsHit(this.player);
+	
+			//判断Enemy是否和主角碰撞
+		}, this);
+
+	
 	}
 
+	private tryShoot() {
+		if(!this.reloading) {
+			let b = this._bulletPool.GetBullet();
+			if (b === undefined) {
+				return;
+			} else {
+				b.Use(BulletType.HERO, this.player.x + this.player.width / 2 - b.width/2, this.player.y - b.height)
+				this.reloading = true;
+				egret.setTimeout(()=>{	
+					this.reloading = false;
+				},this,this.attackRate)
+			}
+		}
+	}
 	private endGame() {
 		let s1: EndScene = new EndScene();
 		SceneManager.Instance.changeScene(s1);
@@ -78,18 +144,9 @@ class GameScene extends Scene {
 		}
 		target.play();
 	}
-	private move(obj: eui.Image, offset: [number, number]) {
+	private move(obj: eui.Component, offset: [number, number]) {
 		let tween: egret.Tween = egret.Tween.get(obj);
-		tween.to({ x: obj.x + offset[0], y: obj.y + offset[1] }, this.duration);
-	}
-
-	public GetBullet(): BulletObject {
-		for (var i = 0; i < this.bulletArr.length; i++) {
-			if (this.bulletArr[i].inUse == false) {
-				return this.bulletArr[i];
-			}
-		}
-		console.log("对象池已经用光了，可能是没有回收")
+		tween.to({ x: obj.x + offset[0], y: obj.y + offset[1] }, this.moveSpeed);
 	}
 
 }
