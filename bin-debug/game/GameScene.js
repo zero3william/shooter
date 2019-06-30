@@ -123,7 +123,6 @@ var GameScene = (function (_super) {
         this.addEventListener(egret.Event.ENTER_FRAME, function (e) {
             //判断子弹是否和飞机碰撞
             var isHit = _this._bulletPool.IsHit(_this.player);
-            console.log("Hit:" + isHit);
             //判断Enemy是否和主角碰撞
         }, this);
     };

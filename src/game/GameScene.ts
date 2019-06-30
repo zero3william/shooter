@@ -111,11 +111,9 @@ class GameScene extends Scene {
 		this.addEventListener(egret.Event.ENTER_FRAME, (e) => {
 			//判断子弹是否和飞机碰撞
 			let isHit = this._bulletPool.IsHit(this.player);
-	
 			//判断Enemy是否和主角碰撞
 		}, this);
 
-	
 	}
 
 	private tryShoot() {

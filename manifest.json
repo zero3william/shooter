@@ -18,6 +18,7 @@
 		"bin-debug/bullet/BulletObject.js",
 		"bin-debug/bullet/BulletType.js",
 		"bin-debug/bullet/HitEvent.js",
+		"bin-debug/bullet/HitType.js",
 		"bin-debug/enemy/AddShipEnemyEvent.js",
 		"bin-debug/LoadingUI.js",
 		"bin-debug/AssetAdapter.js",

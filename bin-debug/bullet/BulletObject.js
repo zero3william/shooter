@@ -48,7 +48,6 @@ var BulletObject = (function (_super) {
         }
     };
     BulletObject.prototype.Use = function (type, x, y) {
-        var _this = this;
         this.inUse = true;
         this.x = x;
         this.y = y;
@@ -61,20 +60,6 @@ var BulletObject = (function (_super) {
         }
         this._main.addChildAt(this, 10);
         this.addEventListener(egret.Event.ENTER_FRAME, this.frame, this);
-        this.addEventListener(HitEvent.EventString, function (e) {
-            console.log("碰撞事件触发：" + _this.bType + "的子彈");
-            if (_this.bType == BulletType.ENEMY) {
-                //Hero被击中
-                console.log("life -1");
-            }
-            if (_this.bType == BulletType.HERO) {
-                //Enemy被击中
-                // e.enemy.Recycle();
-                // this._Score += 1;
-                console.log("分数 +1");
-            }
-            console.log(_this.bType);
-        }, this);
     };
     BulletObject.prototype.Recycle = function () {
         this.inUse = false;

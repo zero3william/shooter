@@ -53,21 +53,6 @@ class BulletObject extends egret.DisplayObjectContainer {
         }
         this._main.addChildAt(this, 10)
         this.addEventListener(egret.Event.ENTER_FRAME, this.frame, this)
-
-        this.addEventListener(HitEvent.EventString, (e: HitEvent) => {
-            console.log("碰撞事件触发：" + this.bType + "的子彈")
-            if (this.bType == BulletType.ENEMY) {
-                //Hero被击中
-                console.log("life -1");
-            }
-            if (this.bType == BulletType.HERO) {
-                //Enemy被击中
-                // e.enemy.Recycle();
-                // this._Score += 1;
-                console.log("分数 +1");
-            }
-            console.log(this.bType);
-        }, this)
     }
 
     public Recycle() {
