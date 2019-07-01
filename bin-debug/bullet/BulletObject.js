@@ -12,16 +12,15 @@ var BulletObject = (function (_super) {
     __extends(BulletObject, _super);
     function BulletObject(main) {
         var _this = _super.call(this) || this;
-        _this._speed = 5;
+        _this._speed = 10;
+        _this.wBoom = 56;
+        _this.hBoom = 56;
+        _this.width = 8;
+        _this.height = 30;
         _this.inUse = false;
-        var w = 8;
-        var h = 30;
-        _this.width = w;
-        _this.height = h;
         _this._main = main;
         _this._bullet = new egret.Bitmap();
-        _this._bullet.width = w;
-        _this._bullet.height = h;
+        _this._bullet.smoothing = true;
         _this.addChild(_this._bullet);
         return _this;
     }
@@ -49,6 +48,9 @@ var BulletObject = (function (_super) {
     };
     BulletObject.prototype.Use = function (type, x, y) {
         this.inUse = true;
+        this._bullet.width = this.width;
+        this._bullet.height = this.height;
+        this._bullet.alpha = 1;
         this.x = x;
         this.y = y;
         this.bType = type;
@@ -61,8 +63,35 @@ var BulletObject = (function (_super) {
         this._main.addChildAt(this, 10);
         this.addEventListener(egret.Event.ENTER_FRAME, this.frame, this);
     };
-    BulletObject.prototype.Recycle = function () {
-        this.inUse = false;
+    BulletObject.prototype.Recycle = function (isHit) {
+        var _this = this;
+        this._bullet.width = this.wBoom;
+        this._bullet.height = this.hBoom;
+        if (isHit) {
+            if (this.bType === BulletType.ENEMY) {
+                this._bullet.texture = RES.getRes("laserGreenShot_png");
+                var tween = egret.Tween.get(this._bullet);
+                tween.to({ alpha: 0.5 }, 200)
+                    .to({ alpha: 0.7 }, 150)
+                    .to({ alpha: 0.2 }, 200)
+                    .to({ alpha: 0.4 }, 150)
+                    .to({ alpha: 0 }, 100)
+                    .call(function () { _this.inUse = false; });
+            }
+            else {
+                this._bullet.texture = RES.getRes("laserGreenShot_png");
+                var tween = egret.Tween.get(this._bullet);
+                tween.to({ alpha: 0.5 }, 200)
+                    .to({ alpha: 0.7 }, 150)
+                    .to({ alpha: 0.2 }, 200)
+                    .to({ alpha: 0.4 }, 150)
+                    .to({ alpha: 0 }, 100)
+                    .call(function () { _this.inUse = false; });
+            }
+        }
+        else {
+            this.inUse = false;
+        }
         this.removeEventListener(egret.Event.ENTER_FRAME, this.frame, this);
     };
     return BulletObject;

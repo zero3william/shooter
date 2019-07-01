@@ -25,7 +25,7 @@ var BulletFactory = (function (_super) {
             this._bulletArr.push(bullet);
         }
         this.addEventListener(HitEvent.EventString, function (e) {
-            console.log("碰撞事件触发：" + bullet.bType + "的子彈");
+            console.log("碰撞事件触发");
             if (e.hType === HitType.ENEMY_HIT_HERO) {
                 //Hero被击中
                 console.log("life -1");
@@ -66,7 +66,7 @@ var BulletFactory = (function (_super) {
                 // }
                 if (isHit) {
                     this.dispatchEvent(this._hitEvent);
-                    this._bulletArr[i].Recycle();
+                    this._bulletArr[i].Recycle(isHit);
                 }
             }
         }

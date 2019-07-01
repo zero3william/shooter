@@ -11,7 +11,7 @@ class BulletFactory extends egret.DisplayObjectContainer {
     public Init(main: any) {
         this._main = main;
         for (var i = 0; i < 50; i++) {
-            var bullet  = new BulletObject(main);
+            var bullet = new BulletObject(main);
             this._bulletArr.push(bullet);
         }
 
@@ -39,12 +39,12 @@ class BulletFactory extends egret.DisplayObjectContainer {
     }
 
     public IsHit(e: egret.DisplayObjectContainer): boolean {
-        // let arr = this._main._EnemyFactory.GetIsUsePlane(); //1.从敌机对象池中取出已经在使用的飞机
+        let arr = this._main._EnemyFactory.GetIsUsePlane(); //1.从敌机对象池中取出已经在使用的飞机
         let isHit = false;
         this._hitEvent = new HitEvent(HitEvent.EventString);
-        for(let i = 0; i < this._bulletArr.length; i++) {
-            if (this._bulletArr[i].inUse === true) {  
-                if (this._bulletArr[i].bType === BulletType.ENEMY) {  
+        for (let i = 0; i < this._bulletArr.length; i++) {
+            if (this._bulletArr[i].inUse === true) {
+                if (this._bulletArr[i].bType === BulletType.ENEMY) {
                     isHit = this.hitTest(e, this._bulletArr[i]);
                     this._hitEvent.hType = HitType.ENEMY_HIT_HERO;
                 }
@@ -57,26 +57,26 @@ class BulletFactory extends egret.DisplayObjectContainer {
                 //         }
                 //     }
                 // }
-                if (isHit) {  //如果碰撞检测为true，那么触发HitEvent事件，并传递检测结果，并手动调用子弹的回收方法
+                if (isHit) {
                     this.dispatchEvent(this._hitEvent);
-                    this._bulletArr[i].Recycle();
+                    this._bulletArr[i].Recycle(isHit);
                 }
             }
         }
         return isHit;
     }
 
-    private hitTest(e: egret.DisplayObjectContainer,b: BulletObject):boolean {
+    private hitTest(e: egret.DisplayObjectContainer, b: BulletObject): boolean {
         // Rect1
         let minX1 = e.x,
             maxX1 = e.x + e.width,
-            minY1 = e.y ,
+            minY1 = e.y,
             maxY1 = e.y + e.height;
         // Rect2
-        let minX2 = b.x ,
+        let minX2 = b.x,
             maxX2 = b.x + b.width,
-            minY2 = b.y  ,
-            maxY2 = b.y + b.height ;
+            minY2 = b.y,
+            maxY2 = b.y + b.height;
         if (maxX1 > minX2 && maxX2 > minX1 && maxY1 > minY2 && maxY2 > minY1) {
             return true;
         }

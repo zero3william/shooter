@@ -1,21 +1,20 @@
 class BulletObject extends egret.DisplayObjectContainer {
     private _bullet: egret.Bitmap;
     private _main: Main;
-    private _speed = 5;
+    private _speed: number = 10;
+    private wBoom: number = 56;
+    private hBoom: number = 56;
+    public width: number = 8;
+    public height: number = 30;
 
     public bType: BulletType;
     public inUse: boolean = false;
 
     public constructor(main: any) {
         super();
-        const w = 8;
-        const h = 30;
-        this.width = w;
-        this.height = h;
         this._main = main;
         this._bullet = new egret.Bitmap();
-        this._bullet.width = w;
-        this._bullet.height = h;
+        this._bullet.smoothing = true;
         this.addChild(this._bullet)
     }
 
@@ -43,6 +42,9 @@ class BulletObject extends egret.DisplayObjectContainer {
 
     public Use(type: BulletType, x: number, y: number) {
         this.inUse = true;
+        this._bullet.width = this.width;
+        this._bullet.height = this.height;
+        this._bullet.alpha = 1;
         this.x = x;
         this.y = y;
         this.bType = type;
@@ -55,8 +57,32 @@ class BulletObject extends egret.DisplayObjectContainer {
         this.addEventListener(egret.Event.ENTER_FRAME, this.frame, this)
     }
 
-    public Recycle() {
-        this.inUse = false;
+    public Recycle(isHit: boolean) {
+        this._bullet.width = this.wBoom;
+        this._bullet.height = this.hBoom;
+        if (isHit) {
+            if (this.bType === BulletType.ENEMY) {
+                this._bullet.texture = RES.getRes("laserGreenShot_png");
+                let tween: egret.Tween = egret.Tween.get(this._bullet);
+                tween.to({ alpha: 0.5 }, 200)
+                    .to({ alpha: 0.7 }, 150)
+                    .to({ alpha: 0.2 }, 200)
+                    .to({ alpha: 0.4 }, 150)
+                    .to({ alpha: 0 }, 100)
+                    .call(() => { this.inUse = false; });
+            } else {
+                this._bullet.texture = RES.getRes("laserGreenShot_png");
+                let tween: egret.Tween = egret.Tween.get(this._bullet);
+                tween.to({ alpha: 0.5 }, 200)
+                    .to({ alpha: 0.7 }, 150)
+                    .to({ alpha: 0.2 }, 200)
+                    .to({ alpha: 0.4 }, 150)
+                    .to({ alpha: 0 }, 100)
+                    .call(() => { this.inUse = false; });
+            }
+        } else {
+            this.inUse = false;
+        }
         this.removeEventListener(egret.Event.ENTER_FRAME, this.frame, this)
     }
 }
