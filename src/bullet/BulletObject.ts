@@ -25,7 +25,7 @@ class BulletObject extends egret.DisplayObjectContainer {
                 if (this.y >= 716) {
                     if (this.parent) {
                         this.parent.removeChild(this);
-                        this.Recycle();
+                        this.Recycle(false);
                     }
                 }
             } else if (this.bType == BulletType.HERO) {
@@ -33,7 +33,7 @@ class BulletObject extends egret.DisplayObjectContainer {
                 if (this.y <= 0) {
                     if (this.parent) {
                         this.parent.removeChild(this);
-                        this.Recycle();
+                        this.Recycle(false);
                     }
                 }
             }

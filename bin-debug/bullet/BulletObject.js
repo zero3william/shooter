@@ -31,7 +31,7 @@ var BulletObject = (function (_super) {
                 if (this.y >= 716) {
                     if (this.parent) {
                         this.parent.removeChild(this);
-                        this.Recycle();
+                        this.Recycle(false);
                     }
                 }
             }
@@ -40,7 +40,7 @@ var BulletObject = (function (_super) {
                 if (this.y <= 0) {
                     if (this.parent) {
                         this.parent.removeChild(this);
-                        this.Recycle();
+                        this.Recycle(false);
                     }
                 }
             }

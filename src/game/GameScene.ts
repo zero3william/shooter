@@ -4,7 +4,7 @@ class GameScene extends Scene {
 	private player: eui.Component;
 	private moveSpeed: number = 20;
 	private attackRate: number = 500;
-	private reloading: Boolean = false; 
+	private reloading: Boolean = false;
 	private _EnemyFactory: EnemyFactory = new EnemyFactory();
 	private _bulletPool: BulletFactory = new BulletFactory();
 	private keydownObj = {
@@ -20,7 +20,7 @@ class GameScene extends Scene {
 		this.skinName = "resource/game/GameScene.exml";
 	}
 	protected onComplete() {
-    	this._EnemyFactory.Init(this);
+		this._EnemyFactory.Init(this);
 		this._bulletPool.Init(this);
 
 		this.toEndBtn.touchEnabled = true;
@@ -37,19 +37,19 @@ class GameScene extends Scene {
 		document.addEventListener("keydown", (evt) => {
 			switch (evt.keyCode) {
 				case keyCode.left:
-					this.keydownObj.left=true;
+					this.keydownObj.left = true;
 					break;
-				case keyCode.up: 
-					this.keydownObj.up=true;
+				case keyCode.up:
+					this.keydownObj.up = true;
 					break;
 				case keyCode.right:
-					this.keydownObj.right=true;
+					this.keydownObj.right = true;
 					break;
 				case keyCode.down:
-				 	this.keydownObj.down=true;
+					this.keydownObj.down = true;
 					break;
 				case keyCode.spacebar:
-					this.keydownObj.spacebar=true;
+					this.keydownObj.spacebar = true;
 					this.tryShoot();
 					break;
 				default:
@@ -58,55 +58,55 @@ class GameScene extends Scene {
 		document.addEventListener("keyup", (evt) => {
 			switch (evt.keyCode) {
 				case keyCode.left:
-					this.keydownObj.left=false;
+					this.keydownObj.left = false;
 					break;
-				case keyCode.up: 
-					this.keydownObj.up=false;
+				case keyCode.up:
+					this.keydownObj.up = false;
 					break;
 				case keyCode.right:
-					this.keydownObj.right=false;
+					this.keydownObj.right = false;
 					break;
 				case keyCode.down:
-				 	this.keydownObj.down=false;
+					this.keydownObj.down = false;
 					break;
 				case keyCode.spacebar:
-				 	this.keydownObj.spacebar=false;
+					this.keydownObj.spacebar = false;
 					break;
 				default:
 			}
 		});
 
-		egret.setInterval(()=>{
-			if(this.keydownObj.left && this.keydownObj.up) {
-				this.move(this.player,[-5,-5]);
+		egret.setInterval(() => {
+			if (this.keydownObj.left && this.keydownObj.up) {
+				this.move(this.player, [-5, -5]);
 				this.player.currentState = "left";
-			} else if(this.keydownObj.left && this.keydownObj.down) {
-				this.move(this.player,[-5,5]);
+			} else if (this.keydownObj.left && this.keydownObj.down) {
+				this.move(this.player, [-5, 5]);
 				this.player.currentState = "left";
-			} else if(this.keydownObj.right && this.keydownObj.up) {
-				this.move(this.player,[5,-5]);
+			} else if (this.keydownObj.right && this.keydownObj.up) {
+				this.move(this.player, [5, -5]);
 				this.player.currentState = "right";
-			}  else if(this.keydownObj.right && this.keydownObj.down) {
-				this.move(this.player,[5,5]);
+			} else if (this.keydownObj.right && this.keydownObj.down) {
+				this.move(this.player, [5, 5]);
 				this.player.currentState = "right";
 			} else if (this.keydownObj.left) {
-				this.move(this.player,[-5,0]); 
+				this.move(this.player, [-5, 0]);
 				this.player.currentState = "left";
-			} else if (this.keydownObj.right ) {
-				this.move(this.player,[5,0]);
+			} else if (this.keydownObj.right) {
+				this.move(this.player, [5, 0]);
 				this.player.currentState = "right";
 			} else if (this.keydownObj.up) {
-				this.move(this.player,[0,-5]);
+				this.move(this.player, [0, -5]);
 			} else if (this.keydownObj.down) {
-				this.move(this.player,[0,5]);
+				this.move(this.player, [0, 5]);
 			}
-		},this,this.moveSpeed);
+		}, this, this.moveSpeed);
 
-		egret.setInterval(()=>{
-			if(this.keydownObj.spacebar) {
+		egret.setInterval(() => {
+			if (this.keydownObj.spacebar) {
 				this.tryShoot();
 			}
-		},this,this.attackRate)
+		}, this, this.attackRate)
 
 		this.addEventListener(egret.Event.ENTER_FRAME, (e) => {
 			//判断子弹是否和飞机碰撞
@@ -117,16 +117,16 @@ class GameScene extends Scene {
 	}
 
 	private tryShoot() {
-		if(!this.reloading) {
+		if (!this.reloading) {
 			let b = this._bulletPool.GetBullet();
 			if (b === undefined) {
 				return;
 			} else {
-				b.Use(BulletType.HERO, this.player.x + this.player.width / 2 - b.width/2, this.player.y - b.height)
+				b.Use(BulletType.HERO, this.player.x + this.player.width / 2 - b.width / 2, this.player.y - b.height)
 				this.reloading = true;
-				egret.setTimeout(()=>{	
+				egret.setTimeout(() => {
 					this.reloading = false;
-				},this,this.attackRate)
+				}, this, this.attackRate)
 			}
 		}
 	}

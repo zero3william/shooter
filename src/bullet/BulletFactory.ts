@@ -39,7 +39,7 @@ class BulletFactory extends egret.DisplayObjectContainer {
     }
 
     public IsHit(e: egret.DisplayObjectContainer): boolean {
-        let arr = this._main._EnemyFactory.GetIsUsePlane(); //1.从敌机对象池中取出已经在使用的飞机
+        // let arr = this._main._EnemyFactory.GetIsUsePlane(); //1.从敌机对象池中取出已经在使用的飞机
         let isHit = false;
         this._hitEvent = new HitEvent(HitEvent.EventString);
         for (let i = 0; i < this._bulletArr.length; i++) {

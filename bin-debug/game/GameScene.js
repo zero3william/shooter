@@ -13,7 +13,7 @@ var GameScene = (function (_super) {
     function GameScene() {
         var _this = _super.call(this) || this;
         _this.moveSpeed = 20;
-        _this.attackRate = 500;
+        _this.attackRate = 50;
         _this.reloading = false;
         _this._EnemyFactory = new EnemyFactory();
         _this._bulletPool = new BulletFactory();
